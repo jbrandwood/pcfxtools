@@ -1,0 +1,16 @@
+pcfxtools (C)2011 Alex Marshall "trap15" <trap15@raidenii.net>
+================================================================================
+
+A set of tools for NEC/Hudson PC-FX development or reverse engineering.
+This code is licensed to you under the terms of the MIT license;
+see file LICENSE or http://www.opensource.org/licenses/mit-license.php
+
+Credits
+================================================================================
+
+NEC/Hudson     -- Creating such a cool system
+trap15         -- Code and reverse engineering
+Arikado        -- Support and listening to my rambling while I code
+#HACKERCHANNEL -- The cool place
+#pcfx @ EFnet  -- EFnet's premier PC-FX channel!
+
