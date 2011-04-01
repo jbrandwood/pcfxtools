@@ -5,12 +5,26 @@ A set of tools for NEC/Hudson PC-FX development or reverse engineering.
 This code is licensed to you under the terms of the MIT license;
 see file LICENSE or http://www.opensource.org/licenses/mit-license.php
 
+Tools
+================================================================================
+
+huobj          -- Converts HuOBJ .o files into more common files (eventually an
+                  ELF object, but for now it dumps all the sections).
+hulib          -- Extracts files from HuLIB .a files into a directory for usage.
+pcfx-cdlink    -- An updated version of pcfx-cdlink that allows you to generate
+                  a set of .bin and .cue files which can be burned and then run
+                  on a PC-FX. Uses an input list with parameters for
+                  configuration. (example.txt is an example of such an input
+                  list file.) boot.h may not be legal within your jurisdiction,
+                  as it is a binary blob taken from a commercial game.
+
 Credits
 ================================================================================
 
 NEC/Hudson     -- Creating such a cool system
 trap15         -- Code and reverse engineering
 Arikado        -- Support and listening to my rambling while I code
+Ryphecha       -- Inifinite amounts of help
+Mednafen       -- Greatest debugger around!
 #HACKERCHANNEL -- The cool place
 #pcfx @ EFnet  -- EFnet's premier PC-FX channel!
-

@@ -1,5 +1,5 @@
-OBJECTS   = huobj.o hulib.o
-OUTPUT    = huobj hulib
+OBJECTS   = huobj.o hulib.o pcfx-cdlink.o
+OUTPUT    = huobj hulib pcfx-cdlink
 TARGETS   = $(OUTPUT)
 LIBS      = 
 CFLAGS    = -O3 $(INCLUDE)
@@ -16,6 +16,8 @@ hulib: hulib.o
 	$(CC) $(LDFLAGS) hulib.o -o $@
 huobj: huobj.o
 	$(CC) $(LDFLAGS) huobj.o -o $@
+pcfx-cdlink: pcfx-cdlink.o
+	$(CC) $(LDFLAGS) pcfx-cdlink.o -o $@
 clean:
 	$(RM) $(CLEANED)
 
