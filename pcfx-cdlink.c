@@ -142,7 +142,6 @@ int main(int argc, char *argv[])
 		perror("Error opening output file");
 		return EXIT_FAILURE;
 	}
-	free(obinname);
 
 	if(fstat(fileno(in_fp), &stat_buf)) {
 		perror("fstat error");
@@ -202,13 +201,15 @@ int main(int argc, char *argv[])
 	char *cuename;
 	asprintf(&cuename, "%s.cue", argv[2]);
 	fp = fopen(cuename, "wb");
-	fprintf(fp, "FILE \"%s\" BINARY\n", argv[2]);
+	fprintf(fp, "FILE \"%s\" BINARY\n", obinname);
 	fprintf(fp, "  TRACK 01 MODE1/2048\n");
 	fprintf(fp, "    INDEX 01 00:00:00\n");
 	fclose(fp);
 	free(cuename);
+	free(obinname);
 
-	printf("Done.");
+	printf("Done.\n");
+	return EXIT_SUCCESS;
 }
 
 
