@@ -1,9 +1,9 @@
 OBJECTS   = huobj.o hulib.o pcfx-cdlink.o
 OUTPUT    = huobj hulib pcfx-cdlink
 TARGETS   = $(OUTPUT)
-LIBS      = 
-CFLAGS    = -O3 $(INCLUDE)
-LDFLAGS   = $(LIBS) -g
+LIBS     += 
+CFLAGS   += -O3 $(INCLUDE)
+LDFLAGS  += $(LIBS) -g
 CLEANED   = $(OBJECTS) $(TARGETS)
 
 .PHONY: all clean
@@ -20,4 +20,3 @@ pcfx-cdlink: pcfx-cdlink.o
 	$(CC) $(LDFLAGS) pcfx-cdlink.o -o $@
 clean:
 	$(RM) $(CLEANED)
-

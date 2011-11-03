@@ -16,6 +16,9 @@ Copyright (C) 2007		Ryphecha / Mednafen
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <string.h>
+#if WIN32
+#include <winsock.h>
+#endif
 
 uint32_t le32(uint32_t i)
 {
@@ -136,8 +139,8 @@ int main(int argc, char *argv[])
 		return EXIT_FAILURE;
 	}
 
-	char *obinname;
-	asprintf(&obinname, "%s.bin", argv[2]);
+	char *obinname = malloc(strlen(argv[2])+5);
+	sprintf(obinname, "%s.bin", argv[2]);
 	if(!(out_fp = fopen(obinname, "wb"))) {
 		perror("Error opening output file");
 		return EXIT_FAILURE;
@@ -198,8 +201,8 @@ int main(int argc, char *argv[])
 	fclose(out_fp);
 
 	/* Output a simple .cue file. */
-	char *cuename;
-	asprintf(&cuename, "%s.cue", argv[2]);
+	char *cuename = malloc(strlen(argv[2])+5);
+	sprintf(cuename, "%s.cue", argv[2]);
 	fp = fopen(cuename, "wb");
 	fprintf(fp, "FILE \"%s\" BINARY\n", obinname);
 	fprintf(fp, "  TRACK 01 MODE1/2048\n");
