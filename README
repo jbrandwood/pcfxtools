@@ -8,6 +8,9 @@ see file LICENSE or http://www.opensource.org/licenses/mit-license.php
 Tools
 ================================================================================
 
+bincat         -- Concatenate binaries into a single binary, padded out to put
+                  each in its own set of 2048 byte sectors. It also generates
+                  a header file with the LBAs for each file's sector.
 huobj          -- Converts HuOBJ .o files into more common files (eventually an
                   ELF object, but for now it dumps all the sections).
 hulib          -- Extracts files from HuLIB .a files into a directory for usage.
@@ -24,7 +27,6 @@ Credits
 NEC/Hudson     -- Creating such a cool system
 trap15         -- Code and reverse engineering
 Arikado        -- Support and listening to my rambling while I code
-Ryphecha       -- Inifinite amounts of help
+Ryphecha       -- Infinite amounts of help
 Mednafen       -- Greatest debugger around!
 #HACKERCHANNEL -- The cool place
-#pcfx @ EFnet  -- EFnet's premier PC-FX channel!
