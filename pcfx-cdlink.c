@@ -89,39 +89,42 @@ int main(int argc, char *argv[])
 	char tmpbuf[256];
 	char binname[256] = "\0";
 	int i;
+	int binblocks = 0;
 	while(keep_going) {
 		if(fgets(tmpbuf, 255, fp) == NULL)
 			break;
 		if(feof(fp))
 			keep_going = 0;
-		if(memcmp(tmpbuf, "binary", 6) == 0) {
+		if(memcmp(tmpbuf, "binary ", 7) == 0) {
 			snprintf(binname, (255 > (strlen(tmpbuf) - 7)) ? strlen(tmpbuf) - 7 : 255, "%s", tmpbuf + 7);
-		}else if(memcmp(tmpbuf, "name", 4) == 0) {
+		}else if(memcmp(tmpbuf, "blocks ", 7) == 0) {
+			binblocks = atoi(tmpbuf + 7);
+		}else if(memcmp(tmpbuf, "name ", 5) == 0) {
 			snprintf(BootHeader.title, 0x20, "%s", tmpbuf + 5);
 			for(i = 0; i < 0x20; i++) {
 				if((BootHeader.title[i] == 0x0A) || (BootHeader.title[i] == 0x0D))
 					BootHeader.title[i] = 0;
 			}
 			BootHeader.title[0x1F] = 0;
-		}else if(memcmp(tmpbuf, "makerid", 7) == 0) {
+		}else if(memcmp(tmpbuf, "makerid ", 8) == 0) {
 			snprintf(BootHeader.maker_id, 4, "%s", tmpbuf + 8);
 			for(i = 0; i < 4; i++) {
 				if((BootHeader.maker_id[i] == 0x0A) || (BootHeader.maker_id[i] == 0x0D))
 					BootHeader.maker_id[i] = 0;
 			}
 			BootHeader.maker_id[3] = 0;
-		}else if(memcmp(tmpbuf, "maker", 5) == 0) {
+		}else if(memcmp(tmpbuf, "maker ", 6) == 0) {
 			snprintf(BootHeader.maker_name, 60, "%s", tmpbuf + 6);
 			for(i = 0; i < 60; i++) {
 				if((BootHeader.maker_name[i] == 0x0A) || (BootHeader.maker_name[i] == 0x0D))
 					BootHeader.maker_name[i] = 0;
 			}
 			BootHeader.maker_name[59] = 0;
-		}else if(memcmp(tmpbuf, "date", 4) == 0) {
+		}else if(memcmp(tmpbuf, "date ", 5) == 0) {
 			snprintf(BootHeader.date, 8, "%s", tmpbuf + 5);
-		}else if(memcmp(tmpbuf, "country", 7) == 0) {
+		}else if(memcmp(tmpbuf, "country ", 8) == 0) {
 			BootHeader.country = atoi(tmpbuf + 8);
-		}else if(memcmp(tmpbuf, "version", 7) == 0) {
+		}else if(memcmp(tmpbuf, "version ", 8) == 0) {
 			BootHeader.version = atoi(tmpbuf + 8);
 		}
 	}
@@ -151,13 +154,15 @@ int main(int argc, char *argv[])
 		return EXIT_FAILURE;
 	}
 
+	if(binblocks == 0)
+		binblocks = (stat_buf.st_size + 2047) / 2048;
 	uint32_t sector_offset = 2;
-	uint32_t sector_count = (stat_buf.st_size + 2047) / 2048;
+	uint32_t sector_count = binblocks;
 	uint32_t prog_offset = 0x8000;
 	uint32_t prog_point = 0x8000;
 
-	printf("Code+data Size: %ld\n", stat_buf.st_size);
-	int32_t sh_size = 1024 * 2048 - stat_buf.st_size - 0x8000 - 2048;
+	printf("Code+data Size: %ld\n", binblocks * 2048);
+	int32_t sh_size = (1024 * 2048) - (binblocks * 2048) - 0x8000 - 2048;
 	/* 2KiB minimum for stack or heap(they grow in different directions!) */
 
 	if(sh_size < 0) {
