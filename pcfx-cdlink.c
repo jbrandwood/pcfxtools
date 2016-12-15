@@ -16,8 +16,9 @@ Copyright (C) 2007		Ryphecha / Mednafen
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <string.h>
-#if WIN32
-#include <winsock.h>
+
+#ifdef _WIN32
+#include <winsock2.h>
 #endif
 
 uint32_t le32(uint32_t i)
@@ -80,7 +81,7 @@ int main(int argc, char *argv[])
 		printf("Usage: %s input.txt outfiles\n", argv[0]);
 		return EXIT_FAILURE;
 	}
-	FILE* fp = fopen(argv[1], "rb");
+	FILE* fp = fopen(argv[1], "r");
 	if(fp == NULL) {
 		perror("Opening input list");
 		return EXIT_FAILURE;
@@ -95,6 +96,9 @@ int main(int argc, char *argv[])
 			break;
 		if(feof(fp))
 			keep_going = 0;
+		i = strlen(tmpbuf) - 1;
+		while((i > 0) && (tmpbuf[i] == 0x0A || tmpbuf[i] == 0x0D))
+			{ tmpbuf[i--] = 0; }
 		if(memcmp(tmpbuf, "binary ", 7) == 0) {
 			snprintf(binname, (255 > (strlen(tmpbuf) - 7)) ? strlen(tmpbuf) - 7 : 255, "%s", tmpbuf + 7);
 		}else if(memcmp(tmpbuf, "blocks ", 7) == 0) {

@@ -13,6 +13,10 @@ Copyright (C) 2011		Alex Marshall <trap15@raidenii.net>
 #include <string.h>
 #include <stdint.h>
 
+#ifdef _WIN32
+#include <winsock2.h>
+#endif
+
 typedef uint8_t u8;
 typedef uint32_t u32;
 
