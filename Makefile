@@ -4,13 +4,14 @@ TARGETS   = $(OUTPUT)
 LIBS     += 
 LIBS     += -lws2_32
 CFLAGS   += -O3 $(INCLUDE)
-LDFLAGS  += -g
+LDFLAGS  += -s
 CLEANED   = $(OBJECTS) $(TARGETS)
 CC        = gcc
 
-.PHONY: all clean
+.PHONY: all clean install
 
 all: $(OBJECTS) $(TARGETS)
+
 %.o: %.c
 	$(CC) $(CFLAGS) -c -o $@ $<
 
@@ -24,3 +25,6 @@ bincat: bincat.o
 	$(CC) $(LDFLAGS) bincat.o -o $@ $(LIBS)
 clean:
 	$(RM) $(CLEANED)
+install: $(TARGETS)
+	mkdir -p $(DSTDIR)/
+	cp $(TARGETS) $(DSTDIR)/
