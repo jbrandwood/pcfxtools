@@ -100,7 +100,7 @@ int main(int argc, char *argv[])
 		while((i > 0) && (tmpbuf[i] == 0x0A || tmpbuf[i] == 0x0D))
 			{ tmpbuf[i--] = 0; }
 		if(memcmp(tmpbuf, "binary ", 7) == 0) {
-			snprintf(binname, (255 > (strlen(tmpbuf) - 7)) ? strlen(tmpbuf) - 7 : 255, "%s", tmpbuf + 7);
+			snprintf(binname, 255, "%s", tmpbuf + 7);
 		}else if(memcmp(tmpbuf, "blocks ", 7) == 0) {
 			binblocks = atoi(tmpbuf + 7);
 		}else if(memcmp(tmpbuf, "name ", 5) == 0) {
