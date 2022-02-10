@@ -12,6 +12,7 @@ Copyright (C) 2011		Alex Marshall <trap15@raidenii.net>
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
+#include <ctype.h>
 
 typedef uint8_t u8;
 typedef uint32_t u32;

@@ -72,7 +72,7 @@ struct {
 	.country = 1,
 	.date = "20XX0131",
 	.pad = { 0, },
-	.udata = { 0, },
+	.udata = { 0, }
 };
 
 int main(int argc, char *argv[])
