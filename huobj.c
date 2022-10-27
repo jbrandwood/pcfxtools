@@ -19,6 +19,8 @@ Copyright (C) 2011		Alex Marshall <trap15@raidenii.net>
 
 #ifdef _WIN32
 #include <winsock2.h>
+#else
+#include <arpa/inet.h>
 #endif
 
 #if 0

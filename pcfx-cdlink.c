@@ -19,6 +19,8 @@ Copyright (C) 2007		Ryphecha / Mednafen
 
 #ifdef _WIN32
 #include <winsock2.h>
+#else
+#include <arpa/inet.h>
 #endif
 
 uint32_t le32(uint32_t i)

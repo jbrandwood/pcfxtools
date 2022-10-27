@@ -1,8 +1,9 @@
 OBJECTS   = huobj.o hulib.o pcfx-cdlink.o bincat.o
 OUTPUT    = huobj hulib pcfx-cdlink bincat
 TARGETS   = $(OUTPUT)
-LIBS     += 
+ifeq ($(OS),Windows_NT)
 LIBS     += -lws2_32
+endif
 CFLAGS   += -O3 $(INCLUDE)
 LDFLAGS  += -s
 CLEANED   = $(OBJECTS) $(TARGETS)
